@@ -1,47 +1,111 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19646090&assignment_repo_type=AssignmentRepo)
-# MongoDB Fundamentals Assignment
+ Mern Stack MongoDB Assignment
 
-This assignment focuses on learning MongoDB fundamentals including setup, CRUD operations, advanced queries, aggregation pipelines, and indexing.
+This repository contains the solution for the MongoDB fundamentals assignment focusing on CRUD operations, advanced queries, aggregation pipelines, and indexing.
 
-## Assignment Overview
-
-You will:
-1. Set up a MongoDB database
-2. Perform basic CRUD operations
-3. Write advanced queries with filtering, projection, and sorting
-4. Create aggregation pipelines for data analysis
-5. Implement indexing for performance optimization
-
-## Getting Started
-
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install MongoDB locally or set up a MongoDB Atlas account
-4. Run the provided `insert_books.js` script to populate your database
-5. Complete the tasks in the assignment document
-
-## Files Included
-
-- `Week1-Assignment.md`: Detailed assignment instructions
-- `insert_books.js`: Script to populate your MongoDB database with sample book data
-
-## Requirements
-
+     Setup Instructions
+      Prerequisites
 - Node.js (v18 or higher)
 - MongoDB (local installation or Atlas account)
-- MongoDB Shell (mongosh) or MongoDB Compass
+- MongoDB Shell (`mongosh`) or MongoDB Compass
 
-## Submission
+       Installation
+1. Clone this repository:
+   
+   git clone <your-repository-url>
+   cd <repository-directory>
+   
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+2. Install dependencies:
+   
+   npm install mongodb
+   
 
-1. Complete all tasks in the assignment
-2. Add your `queries.js` file with all required MongoDB queries
-3. Include a screenshot of your MongoDB database
-4. Update the README.md with your specific setup instructions
+### Database Setup
+1. Start your MongoDB server (if running locally):
+   
+   mongod
+   
 
-## Resources
+2. Populate the database with sample book data:
+   
+   node insert_books.js
+   
 
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [MongoDB University](https://university.mongodb.com/)
-- [MongoDB Node.js Driver](https://mongodb.github.io/node-mongodb-native/) 
+3. Run the queries and operations:
+   
+   node queries.js
+   
+
+ Files Overview
+
+           insert_books.js
+- Populates the MongoDB database with sample book data
+- Creates a `plp_bookstore` database with a `books` collection
+- Drops existing collection if present to ensure clean setup
+
+       `queries.js`
+Contains all required MongoDB operations:
+
+1.       CRUD Operations
+   - Create: Insert new books
+   - Read: Find books by author
+   - Update: Modify prices and stock status
+   - Delete: Remove outdated books
+
+2.        Advanced Queries
+   - Filtering with multiple conditions
+   - Sorting and projection
+   - Range queries
+
+3.       Aggregation Pipeline
+   - Genre-based analysis
+   - Statistical calculations (averages, counts)
+   - Data grouping and sorting
+
+4.          Indexing
+   - Index creation for common query patterns
+   - Query explanation and optimization
+
+       MongoDB Connection Details
+- URI : `mongodb://localhost:27017`
+- Database: `plp_bookstore`
+- Collection : `books`
+
+    Sample Queries to Try
+
+After running the setup, you can try these queries in `mongosh`:
+
+        javascript
+// Find all fantasy books
+db.books.find({ genre: "Fantasy" })
+
+// Find books published after 1950, sorted by price
+db.books.find({ published_year: { $gt: 1950 } }).sort({ price: 1 })
+
+// Get average price by genre
+db.books.aggregate([
+  { $group: { _id: "$genre", avgPrice: { $avg: "$price" } } }
+])
+
+
+      Screenshots
+Include these screenshots in your submission:
+1. Output of `insert_books.js`
+2. Results of `queries.js` execution
+3. Index information from `db.books.getIndexes()`
+4. Sample query results from MongoDB Compass or shell
+
+ Troubleshooting
+
+- Connection Issues : Verify MongoDB is running and the URI is correct
+- Duplicate Data : The script automatically drops the collection before insertion
+- Permission Errors : Ensure your user has read/write access to the database
+
+
+This README includes:
+
+1. Clear setup instructions for both local and Atlas deployments
+2. Comprehensive file documentation explaining each script's purpose
+3. Sample queries for manual testing
+4. Submission requirements with screenshot guidance
+5. Troubleshooting section for common issues
